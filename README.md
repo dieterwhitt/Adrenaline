@@ -15,7 +15,7 @@ With Adrenaline, users can design workout plans and fine-tune their splits by as
 ## Additional Features
 
 - Workout intensity calculator
-- Muscle group heatmap visualizer & strength ratings
+- Muscle group heatmap visualizer
 - Exercise calendar
 - Strength level evaluator & tracker
   - Standards for various exercises calculated based on age, body weight, and gender
