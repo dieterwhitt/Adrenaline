@@ -1,2 +1,4 @@
-# frontend and backend specific gitignores.
+# global gitignore
 
+.DS_Store
+.env
