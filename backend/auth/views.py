@@ -23,7 +23,7 @@ def register(request):
         token = Token.objects.create(user=user)
         # return data (user json, token)
         return Response({
-            "token": token.key, # token value (refer to docs)
+            "token": token.key, # token value (refer to docs for token attributes)
             "user" : serializer.data # serialized data for send back
         }, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

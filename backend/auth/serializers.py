@@ -10,6 +10,6 @@ from django.contrib.auth.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        # password not included, set with set_password for hashing
-        # if you try to save raw it won't let you anyway
-        fields = ["id", "username", "email"] 
+        # password set with set_password for hashing
+        # fields define the attributes that will be validated from req data
+        fields = ["id", "username", "password", "email"] 
