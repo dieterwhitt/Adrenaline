@@ -23,5 +23,5 @@ urlpatterns = [
     path("hello_world", auth.views.hello_world),
     path("register", auth.views.register),
     path("login", auth.views.login),
-    path("validate", auth.views.validate_token),
+    path("validate_token", auth.views.validate_token),
 ]
