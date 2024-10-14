@@ -41,14 +41,17 @@ def get_muscles(request):
         with open(path, "r") as raw:
             muscles = json.load(raw)
         
+        invalid = [] # invalid muscle entries - will be removed from response
         for name in muscles:
             try:
                 data = muscles[name]
                 validate(instance=data, schema=muscle_schema)
             except ValidationError as ve:
                 # issue with muscle data: delete entry from output
-                print(ve)
-                del muscles[name]
+                invalid.append((name, ve))
+        for pair in invalid:
+            del muscles[pair[0]]
+            print("INVALID MUSCLE: ", pair[0])
         # send back valid muscles dict
         return Response(muscles, status=status.HTTP_200_OK)
     except Exception as e:
@@ -85,15 +88,17 @@ def get_exercises(request):
         }
         with open("./data/exercises.json", "r") as raw:
             exercises = json.load(raw)
-        
+        invalid = []
         for name in exercises:
             try:
                 data = exercises[name]
                 validate(instance=data, schema=exercise_schema)
             except ValidationError as ve:
                 # issue with exercise data: delete entry from output
-                print(ve)
-                del exercises[name]
+                invalid.append((name, ve))
+        for pair in invalid:
+            del exercises[pair[0]]
+            print("INVALID EXERCISE: ", pair[0])
         return Response(exercises, status=status.HTTP_200_OK)
     except Exception as e:
         print(e)

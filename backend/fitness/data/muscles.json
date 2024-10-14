@@ -1,20 +1,48 @@
 {
-    "Anterior Deltoid" : {
-        "id" : 1,
+    "Anterior Deltoid": {
+        "id": 1,
         "group": "Shoulders",
         "male_segments": [190, 278],
         "female_segments": [28, 86]
     },
-    "Lateral Deltoid" : {
-        "id" : 2,
+    "Lateral Deltoid": {
+        "id": 2,
         "group": "Shoulders",
         "male_segments": [190, 278],
         "female_segments": [78, 172]
     },
-    "Posterior Deltoid" : {
-        "id" : 3,
+    "Posterior Deltoid": {
+        "id": 3,
         "group": "Shoulders",
         "male_segments": [26, 94],
         "female_segments": [238, 256]
+    },
+    "Triceps Brachii": {
+        "id": 4,
+        "group": "Arms",
+        "subgroup": "Upper Arms",
+        "male_segments": [30, 32, 58, 98, 100, 126],
+        "female_segments": [220, 222, 226, 250, 254, 274]
+    },
+    "Biceps Brachii": {
+        "id": 5,
+        "group": "Arms",
+        "subgroup": "Upper Arms",
+        "male_segments": [194, 282],
+        "female_segments": [90, 166]
+    },
+    "Brachialis": {
+        "id": 6,
+        "group": "Arms",
+        "subgroup": "Upper Arms",
+        "male_segments": [192, 280],
+        "female_segments": [152, 192]
+    },
+    "Brachioradialis": {
+        "id": 7,
+        "group": "Arms",
+        "subgroup": "Forearms",
+        "male_segments": [196, 282],
+        "female_segments": [82, 114]
     }
 }
