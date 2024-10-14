@@ -5,15 +5,15 @@ from django.contrib.auth.models import User
 # need to enforce email uniqueness
 class UsernameOrEmailBackend(ModelBackend):
     # overwrite default authenticate
-    def authenticate(self, request, username=None, password=None, **kwargs):
+    def authenticate(self, request, identifier=None, password=None, **kwargs):
         # print("authenticating using custom backend:")
         try:
             # try to find the user by username first
-            user = User.objects.get(username=username)
+            user = User.objects.get(username=identifier)
         except User.DoesNotExist:
             try:
                 # if the username doesn't exist, try to find the user by email
-                user = User.objects.get(email=username)
+                user = User.objects.get(email=identifier)
             except User.DoesNotExist:
                 user = None
 
