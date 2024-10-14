@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import auth # auth app package
+import fitness # fitness package
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +25,6 @@ urlpatterns = [
     path("register", auth.views.register),
     path("login", auth.views.login),
     path("validate_token", auth.views.validate_token),
+    path("get_muscles", fitness.views.get_muscles),
+    path("get_exercises", fitness.views.get_exercises),
 ]

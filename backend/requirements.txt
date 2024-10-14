@@ -1,5 +1,10 @@
 asgiref==3.8.1
+attrs==24.2.0
 Django==5.1.1
 djangorestframework==3.15.2
+jsonschema==4.23.0
+jsonschema-specifications==2024.10.1
 python-dotenv==1.0.1
+referencing==0.35.1
+rpds-py==0.20.0
 sqlparse==0.5.1
