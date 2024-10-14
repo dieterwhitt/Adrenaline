@@ -60,7 +60,7 @@ ROOT_URLCONF = 'backend.urls'
 # refer to customizing authentication docs
 # for now using default User model
 # set custom authentication backend for authenticate()
-# AUTHENTICATION_BACKENDS = [] 
+AUTHENTICATION_BACKENDS = ["auth.auth_backend.UsernameOrEmailBackend"] 
 
 # set custom user authentication model
 # AUTH_USER_MODEL = ""

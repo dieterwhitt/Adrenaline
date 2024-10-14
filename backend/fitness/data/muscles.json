@@ -44,5 +44,11 @@
         "subgroup": "Forearms",
         "male_segments": [196, 282],
         "female_segments": [82, 114]
+    },
+    "Wrist Flexors": {
+
+    },
+    "Wrist Extensors": {
+
     }
 }
