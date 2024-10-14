@@ -1,13 +1,15 @@
+
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import UserSerializer
-from rest_framework.authtoken.models import Token
-from django.contrib.auth import authenticate
-from rest_framework.authentication import SessionAuthentication, TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
-
+# from .serializers import UserSerializer
+# from rest_framework.authtoken.models import Token
+# from django.contrib.auth import authenticate
+# from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+# from rest_framework.permissions import IsAuthenticated
+'''
 # currently using token authentication. will probably switch to session at some point
+# maybe not since it's for mobile. we'll see
 
 @api_view(["GET"])
 def hello_world(request):
@@ -70,5 +72,21 @@ def validate_token(request):
                      status=status.HTTP_200_OK)
 #
 
+'''
+from rest_framework.decorators import api_view
 
+@api_view(["GET"])
+def hello_world(request):
+    pass
+@api_view(["POST"])
+def register(request):
+    pass
 
+@api_view(["POST"])
+def login(request):
+    pass
+
+@api_view(["POST"])
+def validate_token(request):
+    pass
+    

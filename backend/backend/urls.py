@@ -16,15 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-import auth # auth app package
+import my_auth # auth app package
 import fitness # fitness package
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("hello_world", auth.views.hello_world),
-    path("register", auth.views.register),
-    path("login", auth.views.login),
-    path("validate_token", auth.views.validate_token),
+    path("hello_world", my_auth.views.hello_world),
+    path("register", my_auth.views.register),
+    path("login", my_auth.views.login),
+    path("validate_token", my_auth.views.validate_token),
     path("get_muscles", fitness.views.get_muscles),
     path("get_exercises", fitness.views.get_exercises),
 ]
