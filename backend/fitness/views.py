@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 import json
 from jsonschema import validate, ValidationError
+import os
 
 # loads fitness/data/muscles.json and validates it, then sends it
 @api_view(["GET"])
@@ -34,14 +35,16 @@ def get_muscles(request):
                         "type" : "integer"
                     }}
             },
-            "required": ["id", "group", "male_segment", "female_segment"]
+            "required": ["id", "group", "male_segments", "female_segments"]
         }
-        with open("./data/muscles.json", "r") as raw:
+        path = os.path.join(os.path.dirname(__file__), "data/muscles.json")
+        with open(path, "r") as raw:
             muscles = json.load(raw)
         
-        for name, data in muscles:
+        for name in muscles:
             try:
-                validate(instace=data, schema=muscle_schema)
+                data = muscles[name]
+                validate(instance=data, schema=muscle_schema)
             except ValidationError as ve:
                 # issue with muscle data: delete entry from output
                 print(ve)
@@ -77,14 +80,16 @@ def get_exercises(request):
                 "category": {
                     "enum": ["Aerobic", "Anaerobic", "Strength", "Flexibility"]
                 }
-            }
+            },
+            "required" : ["id", "primary", "secondary", "category"]
         }
         with open("./data/exercises.json", "r") as raw:
             exercises = json.load(raw)
         
-        for name, data in exercises:
+        for name in exercises:
             try:
-                validate(instace=data, schema=exercise_schema)
+                data = exercises[name]
+                validate(instance=data, schema=exercise_schema)
             except ValidationError as ve:
                 # issue with exercise data: delete entry from output
                 print(ve)
