@@ -20,11 +20,19 @@ def get_muscles(request):
                 },
                 "subgroup": {
                     "type": "string",
-                    "enum": ["Calves", "Hamstrings", "Quadriceps", "Biceps", "Triceps",
-                            "Forearms", "Traps","Lats"]
+                    "enum": ["Calves", "Thighs", "Hips", "Waist", "Upper Arms",
+                            "Forearms"]
                 },
-                "male_segment": {"type" : "int"},
-                "female_segment": {"type" : "int"},
+                "male_segments": {
+                    "type": "array",
+                    "items": {
+                        "type" : "integer"
+                    }},
+                "female_segments": {
+                    "type": "array",
+                    "items": {
+                        "type" : "integer"
+                    }}
             },
             "required": ["id", "group", "male_segment", "female_segment"]
         }
@@ -63,7 +71,7 @@ def get_exercises(request):
                 "secondary": {
                     "type": "array",
                     "items": {
-                        "type" : "String"
+                        "type" : "string"
                     }
                 },
                 "category": {
