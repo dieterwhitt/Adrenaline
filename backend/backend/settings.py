@@ -59,7 +59,9 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'backend.urls'
 
 # set custom authentication backend for authenticate()
-AUTHENTICATION_BACKENDS = ["my_auth.auth_backend.UsernameOrEmailBackend"] 
+# keep default backend - need it for admin login
+AUTHENTICATION_BACKENDS = ["my_auth.auth_backend.UsernameOrEmailBackend", 
+                           "django.contrib.auth.backends.ModelBackend"] 
 
 # set custom user authentication model
 AUTH_USER_MODEL = "my_auth.MyUser"

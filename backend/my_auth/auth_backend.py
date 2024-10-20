@@ -1,5 +1,5 @@
 from django.contrib.auth.backends import ModelBackend
-from django.contrib.auth.models import User
+from my_auth.models import MyUser
 
 # custom authentication backend for accepting username or email login
 # need to enforce email uniqueness
@@ -9,12 +9,12 @@ class UsernameOrEmailBackend(ModelBackend):
         # print("authenticating using custom backend:")
         try:
             # try to find the user by username first
-            user = User.objects.get(username=identifier)
-        except User.DoesNotExist:
+            user = MyUser.objects.get(username=identifier)
+        except MyUser.DoesNotExist:
             try:
                 # if the username doesn't exist, try to find the user by email
-                user = User.objects.get(email=identifier)
-            except User.DoesNotExist:
+                user = MyUser.objects.get(email=identifier)
+            except MyUser.DoesNotExist:
                 user = None
 
         # check if the user exists and if the password is correct
