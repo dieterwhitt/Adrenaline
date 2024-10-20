@@ -59,7 +59,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'backend.urls'
 
 # set custom authentication backend for authenticate()
-AUTHENTICATION_BACKENDS = ["auth.auth_backend.UsernameOrEmailBackend"] 
+AUTHENTICATION_BACKENDS = ["my_auth.auth_backend.UsernameOrEmailBackend"] 
 
 # set custom user authentication model
 AUTH_USER_MODEL = "my_auth.MyUser"

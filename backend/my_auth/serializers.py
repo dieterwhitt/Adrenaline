@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 # see drf docs
 
 # user serializer, meta tag specifies what model its based on and what fields
+# from drf docs: birthday format = "YYYY-MM-DD"
 class MyUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model() # fixed insane bug: don't import user! will crash

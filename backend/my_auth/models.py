@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 class MyUser(AbstractUser):
     email = models.EmailField(unique=True) # set email to be unique
-    # additional data
+    # additional data (all required fields)
     birthday = models.DateField()
     weight = models.PositiveSmallIntegerField() # weight in kg
     height = models.PositiveSmallIntegerField() # height in cm
@@ -13,4 +13,5 @@ class MyUser(AbstractUser):
         "female": "Female",
         "other": "Other"
     }
-    gender = models.CharField(choices=gender_choices, max_length=6, default="other")
+    gender = models.CharField(choices=gender_choices, 
+            max_length=6, default="other")
