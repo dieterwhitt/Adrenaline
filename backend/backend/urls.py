@@ -16,8 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-import my_auth # auth app package
-import fitness # fitness package
+import my_auth.views
+import fitness.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
