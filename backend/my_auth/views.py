@@ -64,4 +64,3 @@ def validate_token(request):
     user = request.user
     return Response({"message": f"passed for {user.username if user.username else "Anonymous"}"},
                      status=status.HTTP_200_OK)
-                     

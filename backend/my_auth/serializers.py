@@ -11,5 +11,6 @@ class MyUserSerializer(serializers.ModelSerializer):
         model = get_user_model() # fixed insane bug: don't import user! will crash
         # password set with set_password for hashing
         # fields define the attributes that will be validated from req data
-        fields = ["id", "username", "email", "password", 
-                        "birthday", "weight", "height", "gender"]
+        # first and last name are optional
+        fields = ["id", "username", "email", "password", "birthday", "weight", 
+                         "height", "gender", "first_name", "last_name"]
