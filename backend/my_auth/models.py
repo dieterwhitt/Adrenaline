@@ -16,8 +16,4 @@ class MyUser(AbstractUser):
     gender = models.CharField(choices=gender_choices, 
             max_length=6, default="other")
 
-class Exercise(models.Model):
-    pass
 
-class Workout(models.Model):
-    pass
