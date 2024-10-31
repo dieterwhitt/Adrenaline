@@ -21,4 +21,4 @@ class RoutineSerializer(serializers.ModelSerializer):
     workouts = WorkoutSerializer(many=True)
     class Meta:
         model = models.Routine
-        fields = ["user", "name", "description"]
+        fields = ["user", "name", "description", "creation_date"]

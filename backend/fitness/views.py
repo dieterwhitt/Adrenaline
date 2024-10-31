@@ -1,9 +1,12 @@
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 import json
 from jsonschema import validate, ValidationError
 import os
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 
 # loads fitness/data/muscles.json and validates it, then sends it
 @api_view(["GET"])
@@ -103,3 +106,24 @@ def get_exercises(request):
     except Exception as e:
         print(e)
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+# now: class views for exercise, workout, routine (CRUD)
+# future: bulk-update user (for offline changes)
+
+class ExerciseView(APIView):
+    # instead of decorators, specify authentication and permissions here
+    authentication_classes = [SessionAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    # get, post, put, delete (CRUD)
+    def get(self, request, id):
+        pass
+    
+    def post(self, request, id):
+        pass
+
+    def put(self, request, id):
+        pass
+
+    def delete(self, request, id):
+        pass
