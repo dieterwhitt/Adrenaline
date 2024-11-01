@@ -116,14 +116,15 @@ class ExerciseView(APIView):
     permission_classes = [IsAuthenticated]
 
     # get, post, put, delete (CRUD)
+    # read
     def get(self, request, id):
         pass
-    
-    def post(self, request, id):
+    # create
+    def post(self, request):
         pass
-
+    # update
     def put(self, request, id):
         pass
-
+    # delete
     def delete(self, request, id):
         pass

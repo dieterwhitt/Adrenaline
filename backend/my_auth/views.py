@@ -14,6 +14,8 @@ from rest_framework.decorators import api_view
 def hello_world(request):
     return Response({"message": "Hello, world!"})
 
+# some function views
+
 @api_view(["POST"])
 def register(request):
     # process data by instantiating new serializer with given data
