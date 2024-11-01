@@ -10,17 +10,16 @@ class Routine(models.Model):
     # future options: rotate weekly, choose days of week
     name = models.CharField(max_length=32)
     description = models.CharField(max_length=256)
-    creation_date = models.DateField()
-    '''
     split_choices = {
         "ppl": "Push-Pull-Legs",
         "hl": "Higher-Lower",
 
-        "custom": "Custom"
+        "custom": "Custom Split"
     }
     split = models.CharField(choices=split_choices, 
             max_length=16, default="custom")
-            '''
+    creation_date = models.DateField()
+
 
 # single workout
 class Workout(models.Model):
