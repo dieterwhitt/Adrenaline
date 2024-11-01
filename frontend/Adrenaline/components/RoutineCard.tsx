@@ -27,9 +27,7 @@ export default function RoutineCard({ routine }: { routine: Routine }) {
 
 const routineCardStyle = StyleSheet.create({
   card: {
-    backgroundColor: colors.highlightBackground,
-    marginHorizontal: "4%",
-    marginVertical: "2%",
+    backgroundColor: colors.lightHighlightBackground,
     borderColor: colors.grayBorder,
     borderRadius: 8,
     borderWidth: 2,

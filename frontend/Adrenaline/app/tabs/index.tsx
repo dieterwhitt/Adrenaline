@@ -2,6 +2,8 @@ import { Text, View, StyleSheet } from "react-native";
 import { Link } from "expo-router";
 import { Routine } from "../../types/fitnessTypes";
 import RoutineCard from "../../components/RoutineCard";
+import { colors } from "../../themes/colors";
+import CardPlus from "../../components/CardPlus";
 
 const sampleRoutines: Routine[] = [
   {
@@ -21,8 +23,13 @@ export default function Index() {
       <View>
         {sampleRoutines.map((routine) => (
           // parentheses - implicitly returns
-          <RoutineCard routine={routine} />
+          <View style={{ marginHorizontal: "4%", marginVertical: "2%" }}>
+            <RoutineCard routine={routine} />
+          </View>
         ))}
+        <View style={{ marginHorizontal: "4%", marginVertical: "2%" }}>
+          <CardPlus />
+        </View>
       </View>
     </View>
   );
@@ -32,19 +39,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // backgroundColor: "#fff",
-    backgroundColor: "rgb(255, 245, 250)",
+    backgroundColor: colors.background,
   },
   text: {
-    color: "rgb(59, 0, 7)",
+    color: colors.dark,
     fontSize: 24,
     marginHorizontal: "4%",
     marginTop: "2%",
     paddingVertical: "2%",
     fontWeight: "500",
-  },
-  button: {
-    fontSize: 20,
-    textDecorationLine: "underline",
-    color: "rgb(37, 41, 46)",
   },
 });

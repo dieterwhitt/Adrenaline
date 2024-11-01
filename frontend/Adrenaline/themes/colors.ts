@@ -8,5 +8,7 @@ export const colors = {
     background: "rgb(255, 245, 250)",
     dark: "",
     grayBorder: "rgb(245, 230, 230)",
-    highlightBackground: "rgb(255, 240, 245)"
+    mediumGrayBorder: "rgb(225, 215, 215)",
+    lightHighlightBackground: "rgb(255, 240, 245)",
+    mediumHighlightBackground: "rgb(245, 230, 230)"
 }
