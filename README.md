@@ -22,4 +22,4 @@ With Adrenaline, users can design workout plans and fine-tune their splits by as
 
 ## Samples
 
-![Home Page]()
+![Home Page](https://github.com/dieterwhitt/Adrenaline/blob/main/frontend/screenshots/demo1.png?raw=true)
