@@ -5,8 +5,11 @@ import json
 from jsonschema import validate, ValidationError
 import os
 from rest_framework.views import APIView
+from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+from .models import Exercise
+from .serializers import ExerciseSerializer
 
 # loads fitness/data/muscles.json and validates it, then sends it
 @api_view(["GET"])
@@ -109,8 +112,8 @@ def get_exercises(request):
 
 # now: class views for exercise, workout, routine (CRUD)
 # future: bulk-update user (for offline changes)
-
-class ExerciseView(APIView):
+'''
+class ExerciseViewSet(APIView):
     # instead of decorators, specify authentication and permissions here
     authentication_classes = [SessionAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -128,3 +131,15 @@ class ExerciseView(APIView):
     # delete
     def delete(self, request, id):
         pass
+
+'''
+
+# instead of apiview: use viewsets for abstract crud monkeying
+
+class ExerciseViewSet(viewsets.ModelViewSet):
+    serializer_class = ExerciseSerializer
+    permission_classes = [IsAuthenticated]
+    # define the list of db rows to include in queryset
+    # user matches request user (authenticated)
+    def get_queryset(self):
+        return Exercise.objects.filter(workout__routine__user=self.request.user)
