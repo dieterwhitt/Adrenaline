@@ -8,8 +8,8 @@ from rest_framework.views import APIView
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
-from .models import Exercise
-from .serializers import ExerciseSerializer
+from .models import Exercise, Workout, Routine
+from .serializers import ExerciseSerializer, WorkoutSerializer, RoutineSerializer
 
 # loads fitness/data/muscles.json and validates it, then sends it
 @api_view(["GET"])
@@ -111,7 +111,6 @@ def get_exercises(request):
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 # now: class views for exercise, workout, routine (CRUD)
-# future: bulk-update user (for offline changes)
 '''
 class ExerciseViewSet(APIView):
     # instead of decorators, specify authentication and permissions here
@@ -138,8 +137,25 @@ class ExerciseViewSet(APIView):
 
 class ExerciseViewSet(viewsets.ModelViewSet):
     serializer_class = ExerciseSerializer
+    authentication_classes = [SessionAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
     # define the list of db rows to include in queryset
     # user matches request user (authenticated)
     def get_queryset(self):
         return Exercise.objects.filter(workout__routine__user=self.request.user)
+
+
+class WorkoutViewSet(viewsets.ModelViewSet):
+    serializer_class = WorkoutSerializer
+    authentication_classes = [SessionAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    def get_queryset(self):
+        return Workout.objects.filter(routine__user=self.request.user)
+
+class RoutineViewSet(viewsets.ModelViewSet):
+    serializer_class = RoutineSerializer
+    authentication_classes = [SessionAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    def get_queryset(self):
+        return Routine.objects.filter(user=self.request.user)
+    

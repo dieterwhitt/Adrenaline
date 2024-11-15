@@ -14,11 +14,11 @@ class WorkoutSerializer(serializers.ModelSerializer):
     exercises = ExerciseSerializer(many=True)
     class Meta:
         model = models.Workout
-        fields = ["routine", "name", "description", "order"]
+        fields = ["routine", "name", "description", "order", "exercises"]
 
 class RoutineSerializer(serializers.ModelSerializer):
     # get all workouts
     workouts = WorkoutSerializer(many=True)
     class Meta:
         model = models.Routine
-        fields = ["user", "name", "description", "split", "creation_date"]
+        fields = ["user", "name", "description", "split", "creation_date", "workouts"]
