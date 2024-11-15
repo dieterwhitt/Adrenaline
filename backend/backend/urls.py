@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rest_framework import routers
 import my_auth.views
 import fitness.views
 
@@ -28,3 +29,13 @@ urlpatterns = [
     path("get_muscles", fitness.views.get_muscles),
     path("get_exercises", fitness.views.get_exercises),
 ]
+
+# crud patterns
+# see drf router docs. have to register with basename
+router = routers.SimpleRouter()
+router.register(r"exercises", fitness.views.ExerciseViewSet, basename="exercise")
+router.register(r"workouts", fitness.views.WorkoutViewSet, basename="workout")
+router.register(r"routines", fitness.views.RoutineViewSet, basename="routine")
+
+# add viewset patterns
+urlpatterns += router.get_urls()
