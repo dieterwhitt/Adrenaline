@@ -25,11 +25,13 @@ def register(request):
         user = serializer.save() # save data in serializer as model
         user.set_password(request.data["password"]) # hash password
         user.save() # resave hashed password
+        print("user created")
         token = Token.objects.create(user=user)
+        print("token created")
         # return data (user json, token)
         return Response({
             "token": token.key,
-            "user" : serializer.instance
+            "user" : serializer.data
         }, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
