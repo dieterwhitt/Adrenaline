@@ -21,7 +21,7 @@ def register(request):
     # process data by instantiating new serializer with given data
     serializer = MyUserSerializer(data=request.data)
     # now check that the data was valid
-    if serializer.is_valid(): # valid if - unique and all fields satisfied
+    if serializer.is_valid(): # valid if - fields satsfied according to model
         user = serializer.save() # save data in serializer as model
         user.set_password(request.data["password"]) # hash password
         user.save() # resave hashed password
@@ -40,7 +40,9 @@ def login(request):
     # attempt to get user associate with username and check if password matches.
     # if valid, return token
     # custom authentication backend
-    user = authenticate(identifier=request.data["identifier"], password=request.data["password"])
+    # use .get for safer handling
+    user = authenticate(identifier=request.data.get("identifier"), 
+                        password=request.data.get("password"))
     if user is not None:
         # retrieve token (create it if it wasn't created for any reason)
         token, created = Token.objects.get_or_create(user=user)

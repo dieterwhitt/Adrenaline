@@ -12,5 +12,6 @@ class MyUserSerializer(serializers.ModelSerializer):
         # password set with set_password for hashing
         # fields define the attributes that will be validated from req data
         # first and last name are optional
-        fields = ["id", "username", "email", "password", "birthday", "weight", 
+        # don't serialize password (database only)
+        fields = ["id", "username", "email", "birthday", "weight", 
                          "height", "gender", "first_name", "last_name"]

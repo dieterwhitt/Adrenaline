@@ -135,6 +135,8 @@ class ExerciseViewSet(APIView):
 
 # instead of apiview: use viewsets for abstract crud monkeying
 
+# tested so far: routines
+
 class ExerciseViewSet(viewsets.ModelViewSet):
     serializer_class = ExerciseSerializer
     authentication_classes = [SessionAuthentication, TokenAuthentication]
@@ -142,7 +144,7 @@ class ExerciseViewSet(viewsets.ModelViewSet):
     # define the list of db rows to include in queryset
     # user matches request user (authenticated)
     def get_queryset(self):
-        return Exercise.objects.filter(workout__routine__user=self.request.user)
+        return Exercise.objects.filter(workout__routine__creator=self.request.user)
 
 
 class WorkoutViewSet(viewsets.ModelViewSet):
@@ -150,12 +152,35 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     authentication_classes = [SessionAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
     def get_queryset(self):
-        return Workout.objects.filter(routine__user=self.request.user)
+        return Workout.objects.filter(routine__creator=self.request.user)
 
 class RoutineViewSet(viewsets.ModelViewSet):
     serializer_class = RoutineSerializer
     authentication_classes = [SessionAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
     def get_queryset(self):
-        return Routine.objects.filter(user=self.request.user)
+        return Routine.objects.filter(creator=self.request.user)
+
+    # actual decoration engineering here
+    def fix_creator(func):
+        def wrapper(self, request, *args, **kwargs):
+            # set creator to the associated user before proceeding
+            request.data.update({"creator": request.user.id})
+            return func(self, request, *args, **kwargs)
+        return wrapper
+
+    # automatically set creator in requests and make it unmodifiable
+
+    @fix_creator
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+    
+    @fix_creator
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+    @fix_creator
+    def partial_update(self, request, *args, **kwargs):
+        return super().partial_update(request, *args, **kwargs)
     

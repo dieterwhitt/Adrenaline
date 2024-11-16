@@ -21,9 +21,9 @@ urlpatterns = [
 
 # see drf router docs. have to register with basename
 router = routers.SimpleRouter()
-router.register(r"exercises", fitness.views.ExerciseViewSet, basename="exercise")
-router.register(r"workouts", fitness.views.WorkoutViewSet, basename="workout")
-router.register(r"routines", fitness.views.RoutineViewSet, basename="routine")
+router.register(r"exercise", fitness.views.ExerciseViewSet, basename="exercise")
+router.register(r"workout", fitness.views.WorkoutViewSet, basename="workout")
+router.register(r"routine", fitness.views.RoutineViewSet, basename="routine")
 
 # add viewset patterns
 urlpatterns += router.get_urls()

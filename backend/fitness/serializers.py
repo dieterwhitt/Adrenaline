@@ -7,18 +7,18 @@ from .models import Exercise, Workout, Routine
 class ExerciseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exercise
-        fields = ["workout", "name", "weight", "reps", "sets", "order"]
+        fields = ["id", "workout", "name", "weight", "reps", "sets", "order"]
 
 class WorkoutSerializer(serializers.ModelSerializer):
-    # nested serializer - get all exercises
-    exercises = ExerciseSerializer(many=True)
+    # nested serializer - get all exercises from reverse relationship
+    exercises = ExerciseSerializer(many=True, read_only=False)
     class Meta:
         model = Workout
-        fields = ["routine", "name", "description", "order", "exercises"]
+        fields = ["id", "routine", "name", "description", "order", "exercises"]
 
 class RoutineSerializer(serializers.ModelSerializer):
-    # get all workouts
-    workouts = WorkoutSerializer(many=True)
+    # get all workouts from reverse relationship (display only)
+    workouts = WorkoutSerializer(many=True, read_only=True)
     class Meta:
         model = Routine
-        fields = ["user", "name", "description", "split", "creation_date", "workouts"]
+        fields = ["id", "creator", "name", "description", "split", "creation_date", "workouts"]
