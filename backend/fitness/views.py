@@ -110,32 +110,11 @@ def get_exercises(request):
         print(e)
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-# now: class views for exercise, workout, routine (CRUD)
-'''
-class ExerciseViewSet(APIView):
-    # instead of decorators, specify authentication and permissions here
-    authentication_classes = [SessionAuthentication, TokenAuthentication]
-    permission_classes = [IsAuthenticated]
-
-    # get, post, put, delete (CRUD)
-    # read
-    def get(self, request, id):
-        pass
-    # create
-    def post(self, request):
-        pass
-    # update
-    def put(self, request, id):
-        pass
-    # delete
-    def delete(self, request, id):
-        pass
-
-'''
-
 # instead of apiview: use viewsets for abstract crud monkeying
 
 # tested so far: routines
+# future: workouts, exercises
+# crud on other users objects
 
 class ExerciseViewSet(viewsets.ModelViewSet):
     serializer_class = ExerciseSerializer
@@ -145,6 +124,32 @@ class ExerciseViewSet(viewsets.ModelViewSet):
     # user matches request user (authenticated)
     def get_queryset(self):
         return Exercise.objects.filter(workout__routine__creator=self.request.user)
+    # decorator: return bad request if workout doesn't belong to user
+    def validate_exercise(func):
+        def wrapper(self, request, *args, **kwargs):
+            try:
+                workout_id = request.data.get("workout", None)
+                workout = Workout.objects.get(pk=workout_id)
+                routine = workout.routine
+                if routine.creator != request.user:
+                    raise ValueError("user does not own this routine")
+                return func(self, request, *args, **kwargs)
+            except Exception as e:
+                return Response({"message": f"associated routine is invalid: {e}"}, 
+                        status.HTTP_400_BAD_REQUEST)
+        return wrapper
+
+    @validate_exercise
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+    
+    @validate_exercise
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+    @validate_exercise
+    def partial_update(self, request, *args, **kwargs):
+        return super().partial_update(request, *args, **kwargs)
 
 
 class WorkoutViewSet(viewsets.ModelViewSet):
@@ -153,6 +158,33 @@ class WorkoutViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     def get_queryset(self):
         return Workout.objects.filter(routine__creator=self.request.user)
+    # decorator: return bad request if routine doesn't belong to user
+    # it is still possible (although not ideal) to update a workout to belong
+    # to another routine.
+    def validate_workout(func):
+        def wrapper(self, request, *args, **kwargs):
+            try:
+                routine_id = request.data.get("routine", None)
+                routine = Routine.objects.get(pk=routine_id)
+                if routine.creator != request.user:
+                    raise ValueError("user does not own this routine")
+                return func(self, request, *args, **kwargs)
+            except Exception as e:
+                return Response({"message": f"associated routine is invalid: {e}"}, 
+                        status.HTTP_400_BAD_REQUEST)
+        return wrapper
+
+    @validate_workout
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+    
+    @validate_workout
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+    @validate_workout
+    def partial_update(self, request, *args, **kwargs):
+        return super().partial_update(request, *args, **kwargs)
 
 class RoutineViewSet(viewsets.ModelViewSet):
     serializer_class = RoutineSerializer
