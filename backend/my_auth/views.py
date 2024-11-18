@@ -8,7 +8,9 @@ from django.contrib.auth import authenticate
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
-from rest_framework.decorators import api_view
+# in the future make sure to delete tokens after logout and password change.
+# login should generate a new token.
+
 
 @api_view(["GET"])
 def hello_world(request):

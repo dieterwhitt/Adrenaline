@@ -16,11 +16,13 @@ export default function TabLayout() {
         headerTintColor: "rgb(255, 255, 255)",
         tabBarStyle: {
           backgroundColor: colors.mediumHighlightBackground,
+          borderTopWidth: 0,
         },
       }}
     >
+      {/*tab layout screens*/}
       <Tabs.Screen
-        name="index"
+        name="home"
         options={{
           title: "Home",
           tabBarIcon: ({ color, focused }) => (

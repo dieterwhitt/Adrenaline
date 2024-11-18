@@ -1,5 +1,5 @@
 import { Text, View, StyleSheet, Pressable } from "react-native";
-import { Routine } from "../types/fitnessTypes";
+import { Routine, Workout } from "../types/fitnessTypes";
 import HorizontalCardDivider from "./HorizontalCardDivider";
 import { colors } from "../themes/colors";
 
@@ -16,8 +16,8 @@ export default function RoutineCard({ routine }: { routine: Routine }) {
         <Text style={routineCardStyle.body}>{routine.description}</Text>
         <HorizontalCardDivider />
         <View style={routineCardStyle.body}>
-          {routine.data.map((bullet: String) => (
-            <Text>• {bullet}</Text>
+          {routine.workouts.map((workout: Workout) => (
+            <Text>• {workout.name}</Text>
           ))}
         </View>
       </View>
