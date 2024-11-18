@@ -165,12 +165,13 @@ class WorkoutViewSet(viewsets.ModelViewSet):
         def wrapper(self, request, *args, **kwargs):
             try:
                 routine_id = request.data.get("routine", None)
-                routine = Routine.objects.get(pk=routine_id)
-                if routine.creator != request.user:
-                    raise ValueError("user does not own this routine")
+                if routine_id != None:
+                    routine = Routine.objects.get(pk=routine_id)
+                    if routine.creator != request.user:
+                        raise ValueError("user does not own this routine")
                 return func(self, request, *args, **kwargs)
             except Exception as e:
-                return Response({"message": f"associated routine is invalid: {e}"}, 
+                return Response({"message": f"Error: {e}"}, 
                         status.HTTP_400_BAD_REQUEST)
         return wrapper
 

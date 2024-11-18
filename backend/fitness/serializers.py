@@ -11,7 +11,7 @@ class ExerciseSerializer(serializers.ModelSerializer):
 
 class WorkoutSerializer(serializers.ModelSerializer):
     # nested serializer - get all exercises from reverse relationship
-    exercises = ExerciseSerializer(many=True, read_only=False)
+    exercises = ExerciseSerializer(many=True, read_only=True)
     class Meta:
         model = Workout
         fields = ["id", "routine", "name", "description", "order", "exercises"]
