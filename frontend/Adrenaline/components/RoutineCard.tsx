@@ -16,14 +16,24 @@ export default function RoutineCard({ routine }: { routine: Routine }) {
         <Text style={routineCardStyle.body}>{routine.description}</Text>
         <HorizontalCardDivider />
         <View style={routineCardStyle.body}>
-          {routine.workouts.map((workout: Workout) => (
-            <Text>• {workout.name}</Text>
-          ))}
+          <RoutineSmallDropdown routine={routine} />
         </View>
       </View>
     </Pressable>
   );
 }
+
+function RoutineSmallDropdown({ routine }: { routine: Routine }) {
+  if (routine.workouts.length === 0) {
+    return <Text style={{ fontStyle: "italic" }}>No workouts added</Text>;
+  } else {
+    return routine.workouts.map((workout: Workout) => (
+      <Text>• {workout.name}</Text>
+    ));
+  }
+}
+
+function RoutineExpandedDropdown({ routine }: { routine: Routine }) {}
 
 const routineCardStyle = StyleSheet.create({
   card: {

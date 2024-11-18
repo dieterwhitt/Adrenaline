@@ -10,7 +10,10 @@ import Constants from "expo-constants";
 
 import { useState, useEffect } from "react";
 
-const api_url = Constants.manifest.extra.BACKEND_URL;
+const api_url = process.env.BACKEND_URL;
+// in the future, store tokens in secure storage after login
+// re-log whenever token changes (validate token fails)
+const token = process.env.TEST_TOKEN;
 
 const sampleRoutines: Routine[] = [
   {
@@ -22,10 +25,6 @@ const sampleRoutines: Routine[] = [
     workouts: [],
   },
 ];
-
-// in the future, store tokens in secure storage after login
-// re-log whenever token changes (validate token fails)
-const token = Constants.manifest.extra.TEST_TOKEN;
 
 export default function Home() {
   const [routines, setRoutines] = useState<Routine[]>([]);
@@ -42,6 +41,8 @@ export default function Home() {
           Authorization: `Token ${token}`,
         },
       });
+      const json = await response.json();
+      // console.log(json);
       // check error flag
       if (!response.ok) {
         setError(false);
@@ -49,6 +50,7 @@ export default function Home() {
       }
       // finish loading
       setLoading(false);
+      setRoutines(json);
     }
 
     // call async
